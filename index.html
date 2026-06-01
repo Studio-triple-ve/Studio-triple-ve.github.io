@@ -3,25 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Studio Triple-vé</title>
+    <title>Studio Triple-vé | Em breve</title>
     <style>
         body {
-            background-color: #111;
-            color: #fff;
-            font-family: sans-serif;
+            /* O código abaixo cria a camada escura (0.8 de opacidade) e puxa a imagem de fundo */
+            background-image: linear-gradient(rgba(15, 15, 15, 0.8), rgba(15, 15, 15, 0.8)), url('https://images.unsplash.com/photo-1600132806370-bf17e65e942f?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            
+            color: #ffffff;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             display: flex;
+            flex-direction: column; /* Coloca os itens um embaixo do outro */
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
+            text-align: center;
         }
         h1 {
-            font-size: 3rem;
-            letter-spacing: 2px;
+            font-size: 3.5rem;
+            letter-spacing: 3px;
+            margin: 0 0 15px 0;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        }
+        p {
+            font-size: 1.2rem;
+            letter-spacing: 4px;
+            color: #cccccc;
+            text-transform: uppercase;
+            margin: 0;
         }
     </style>
 </head>
 <body>
     <h1>Studio Triple-vé</h1>
+    <p>Under Development</p>
 </body>
 </html>
