@@ -1,0 +1,177 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;700&display=swap');
+
+/* Reset e base */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body, html {
+    height: 100%;
+    font-family: 'DM Sans', sans-serif;
+
+    /* Gradiente: ~35% branco → ~60% rosa → ~5% preto */
+    background: linear-gradient(
+        to bottom,
+        #ffffff 0%,
+        #ffffff 28%,
+        #ffb3d1 42%,
+        #ff69a8 72%,
+        #ff1a7a 88%,
+        #1a0010 96%,
+        #000000 100%
+    );
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+/* Centraliza o banner na tela */
+.main-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 60px 20px 40px;
+}
+
+/* Box principal */
+.banner-box {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: flex-start;
+    gap: 0;
+    max-width: 1050px;
+    width: 100%;
+    position: relative;
+}
+
+/* Mascote como botão de Home */
+.character-home {
+    display: block;
+    flex-shrink: 0;
+    width: 420px;
+    position: relative;
+    bottom: 0;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    filter: drop-shadow(0 20px 40px rgba(255, 80, 150, 0.35));
+}
+
+.character-home img {
+    width: 100%;
+    height: auto;
+    display: block;
+    /* Sobe a imagem um pouco para ela "vazar" acima do box de texto */
+    margin-bottom: -10px;
+}
+
+.character-home:hover {
+    transform: translateY(-8px) scale(1.02);
+    filter: drop-shadow(0 30px 50px rgba(255, 80, 150, 0.55));
+}
+
+/* Card de texto com glassmorphism sutil */
+.text-content {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 24px;
+    padding: 48px 52px;
+    color: white;
+    margin-left: -30px; /* Sobrepõe levemente a mascote */
+    align-self: center;
+}
+
+/* Título */
+.text-content h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 5rem;
+    font-weight: 400;
+    line-height: 0.9;
+    letter-spacing: 2px;
+    color: #fff;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.25);
+    margin-bottom: 14px;
+}
+
+.text-content h1 strong {
+    display: block;
+    font-family: 'Bebas Neue', sans-serif;
+    font-weight: 400;
+    color: #ffcce5;
+    font-size: 6.5rem;
+    letter-spacing: 4px;
+    text-shadow: 0 0 30px rgba(255, 100, 180, 0.6);
+}
+
+.tagline {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 36px;
+}
+
+/* Botões em linha única */
+.menu-buttons {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 12px;
+    align-items: center;
+}
+
+.btn {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    text-decoration: none;
+    padding: 10px 22px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 0.82rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
+    transition: background 0.25s ease, transform 0.2s ease, border-color 0.25s ease;
+    white-space: nowrap;
+}
+
+.btn:hover {
+    background: rgba(255, 80, 150, 0.55);
+    border-color: rgba(255, 200, 230, 0.7);
+    transform: translateY(-3px);
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .banner-box {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .character-home {
+        width: 240px;
+        margin-bottom: -20px;
+    }
+
+    .text-content {
+        margin-left: 0;
+        padding: 36px 28px;
+        text-align: center;
+    }
+
+    .text-content h1 {
+        font-size: 3.5rem;
+    }
+
+    .text-content h1 strong {
+        font-size: 4.5rem;
+    }
+
+    .menu-buttons {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
