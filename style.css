@@ -19,12 +19,12 @@ body, html {
     background-attachment: fixed;
 }
 
-/* ── Contact fixo — menos colado no canto ───────────── */
+/* ── Contact fixo — canto inferior direito, sempre visível ── */
 .contact-fixed-placeholder {
-    position: fixed;
-    bottom: 32px;
-    right: 60px;      /* menos extremo que 24px */
-    z-index: 999;
+    position: fixed !important;
+    bottom: 32px !important;
+    right: 48px !important;
+    z-index: 9999;
     width: 100px;
     height: 100px;
     background: rgba(255,255,255,0.15);
@@ -66,14 +66,14 @@ body, html {
     position: relative;
     display: flex;
     align-items: center;
-    max-width: 900px;
+    max-width: 1100px;
     width: 100%;
     background: rgba(255,255,255,0.11);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
     border: 1px solid rgba(255,255,255,0.22);
     border-radius: 28px;
-    padding: 52px 280px 52px 52px; /* espaço à direita para a personagem */
+    padding: 64px 360px 64px 64px;
     overflow: visible;
 }
 
@@ -114,14 +114,14 @@ body, html {
 }
 .home-title {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 3.6rem;
+    font-size: 4.4rem;
     line-height: 0.88;
     color: #fff;
     text-shadow: 0 2px 18px rgba(0,0,0,0.2);
 }
 .home-title strong {
     display: block;
-    font-size: 5rem;
+    font-size: 6.2rem;
     color: #ffe0ef;
     text-shadow: 0 0 28px rgba(255,120,180,0.55);
     font-weight: 400;
@@ -137,10 +137,10 @@ body, html {
 /* Personagem: metade dentro, metade fora do card, lado direito */
 .home-card-character {
     position: absolute;
-    right: -60px;       /* vaza para fora do card */
+    right: -80px;
     top: 50%;
     transform: translateY(-50%);
-    width: 320px;
+    width: 420px;
     z-index: 3;
     pointer-events: none;
     filter: drop-shadow(0 16px 40px rgba(200,40,100,0.35));
