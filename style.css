@@ -343,46 +343,81 @@ body, html {
     opacity: 0.8;
 }
 
-/* ── AI MODELS: cards ───────────────────────────── */
-.models-grid {
+/* ── AI MODELS: layout diagonal ─────────────────── */
+.models-diagonal {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 40px;
+    padding-top: 8px;
 }
-.model-card {
+
+/* Par foto+info — base */
+.model-duo {
     display: flex;
     align-items: center;
-    gap: 20px;
-    background: rgba(255,255,255,0.1);
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 16px;
-    padding: 16px 20px;
+    gap: 28px;
 }
-.model-thumb {
-    width: 90px;
-    height: 110px;
+
+/* Foto grande */
+.model-big-thumb {
+    flex-shrink: 0;
+    width: 220px;
+    height: 280px;
     background: rgba(255,255,255,0.12);
     border: 2px dashed rgba(255,255,255,0.4);
-    border-radius: 10px;
+    border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.55rem;
+    font-size: 0.65rem;
     color: rgba(255,255,255,0.6);
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
     text-align: center;
-    flex-shrink: 0;
+    overflow: hidden; /* para quando for img real */
 }
-.model-info h3 {
+/* Quando for <img> real dentro do thumb */
+.model-big-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 14px;
+}
+
+/* Info lateral */
+.model-duo-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.model-duo-name {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.6rem;
+    font-size: 2.4rem;
     color: #fff;
-    letter-spacing: 1px;
-    margin-bottom: 8px;
+    letter-spacing: 2px;
+    line-height: 1;
+    text-shadow: 0 0 16px rgba(200,50,100,0.4);
 }
+.model-duo-desc {
+    color: rgba(255,255,255,0.75);
+    font-size: 0.88rem;
+    line-height: 1.6;
+    max-width: 260px;
+}
+
+/* Modelo 1: foto esquerda — desloca pra esquerda */
+.model-duo--left {
+    align-self: flex-start;
+    margin-left: 0;
+}
+
+/* Modelo 2: foto direita — empurra pra direita */
+.model-duo--right {
+    align-self: flex-end;
+    margin-right: 0;
+}
+
 .model-links { display: flex; gap: 10px; flex-wrap: wrap; }
 .model-link {
     font-size: 0.72rem;
@@ -391,7 +426,7 @@ body, html {
     text-transform: uppercase;
     color: #fff;
     text-decoration: none;
-    padding: 5px 14px;
+    padding: 6px 16px;
     border-radius: 20px;
     border: 1.5px solid rgba(255,255,255,0.35);
     background: rgba(255,255,255,0.1);
