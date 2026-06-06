@@ -1,177 +1,513 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;700&display=swap');
 
-/* Reset e base */
-*, *::before, *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+/* ── Reset ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* ── Gradiente global ───────────────────────────────
+   Branco leve no topo → rosa quente no meio → fiozinho preto no fim
+   Menos branco, rosa menos choque (virou #e8457a), preto fininho
+──────────────────────────────────────────────────── */
 body, html {
-    height: 100%;
+    min-height: 100%;
     font-family: 'DM Sans', sans-serif;
-
-    /* Gradiente: ~35% branco → ~60% rosa → ~5% preto */
     background: linear-gradient(
         to bottom,
-        #ffffff 0%,
-        #ffffff 28%,
-        #ffb3d1 42%,
-        #ff69a8 72%,
-        #ff1a7a 88%,
-        #1a0010 96%,
-        #000000 100%
+        #fff5f8 0%,
+        #ffd6e7 15%,
+        #f06090 45%,
+        #c8336a 78%,
+        #3a0018 96%,
+        #0d0005 100%
     );
     background-attachment: fixed;
-    min-height: 100vh;
 }
 
-/* Centraliza o banner na tela */
-.main-container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    min-height: 100vh;
-    padding: 60px 20px 40px;
-}
-
-/* Box principal */
-.banner-box {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-    justify-content: flex-start;
-    gap: 0;
-    max-width: 1050px;
-    width: 100%;
-    position: relative;
-}
-
-/* Mascote como botão de Home */
-.character-home {
-    display: block;
-    flex-shrink: 0;
-    width: 420px;
-    position: relative;
-    bottom: 0;
+/* ── Botão Contact fixo (todas as páginas) ──────────
+   Troca contact_girls.png pelo seu PNG quando estiver pronto
+──────────────────────────────────────────────────── */
+.contact-fixed {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 999;
+    width: 120px;
+    cursor: pointer;
     transition: transform 0.3s ease, filter 0.3s ease;
-    filter: drop-shadow(0 20px 40px rgba(255, 80, 150, 0.35));
+    filter: drop-shadow(0 4px 16px rgba(200,40,100,0.4));
 }
-
-.character-home img {
-    width: 100%;
-    height: auto;
-    display: block;
-    /* Sobe a imagem um pouco para ela "vazar" acima do box de texto */
-    margin-bottom: -10px;
+.contact-fixed:hover {
+    transform: translateY(-6px) scale(1.05);
+    filter: drop-shadow(0 8px 24px rgba(200,40,100,0.65));
 }
-
-.character-home:hover {
-    transform: translateY(-8px) scale(1.02);
-    filter: drop-shadow(0 30px 50px rgba(255, 80, 150, 0.55));
-}
-
-/* Card de texto com glassmorphism sutil */
-.text-content {
-    flex: 1;
-    background: rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    border-radius: 24px;
-    padding: 48px 52px;
+/* Placeholder visual enquanto não tem o PNG das meninas */
+.contact-fixed-placeholder {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 999;
+    width: 110px;
+    height: 110px;
+    background: rgba(255,255,255,0.15);
+    border: 2px dashed rgba(255,255,255,0.5);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     color: white;
-    margin-left: -30px; /* Sobrepõe levemente a mascote */
-    align-self: center;
-}
-
-/* Título */
-.text-content h1 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 5rem;
-    font-weight: 400;
-    line-height: 0.9;
-    letter-spacing: 2px;
-    color: #fff;
-    text-shadow: 0 2px 20px rgba(0,0,0,0.25);
-    margin-bottom: 14px;
-}
-
-.text-content h1 strong {
-    display: block;
-    font-family: 'Bebas Neue', sans-serif;
-    font-weight: 400;
-    color: #ffcce5;
-    font-size: 6.5rem;
-    letter-spacing: 4px;
-    text-shadow: 0 0 30px rgba(255, 100, 180, 0.6);
-}
-
-.tagline {
-    font-size: 0.9rem;
-    color: rgba(255,255,255,0.6);
-    letter-spacing: 2px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 1px;
     text-transform: uppercase;
-    margin-bottom: 36px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.25s, transform 0.2s;
+    gap: 6px;
+}
+.contact-fixed-placeholder span.icon { font-size: 1.6rem; }
+.contact-fixed-placeholder:hover {
+    background: rgba(255,80,140,0.35);
+    transform: translateY(-4px);
 }
 
-/* Botões em linha única */
-.menu-buttons {
+/* ════════════════════════════════════════════════════
+   HOME PAGE
+════════════════════════════════════════════════════ */
+.home-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 48px 60px 80px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Plaquinha + título + nav — lado esquerdo/topo */
+.home-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    max-width: 520px;
+    z-index: 2;
+}
+
+/* Plaquinha clicável (Home button) */
+.plaque-home {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+    transition: transform 0.25s;
+}
+.plaque-home:hover { transform: translateY(-3px); }
+
+/* Placeholder da plaquinha até ter o PNG definitivo */
+.plaque-placeholder {
+    width: 64px;
+    height: 64px;
+    background: rgba(255,255,255,0.2);
+    border: 2px dashed rgba(255,255,255,0.55);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.55rem;
+    color: rgba(255,255,255,0.7);
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.home-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    line-height: 0.88;
+    color: #fff;
+    text-shadow: 0 2px 18px rgba(0,0,0,0.2);
+}
+.home-title strong {
+    display: block;
+    font-size: 5.5rem;
+    color: #ffe0ef;
+    text-shadow: 0 0 28px rgba(255,120,180,0.55);
+    font-weight: 400;
+}
+
+/* Nav bar */
+.home-nav {
     display: flex;
     flex-wrap: nowrap;
-    gap: 12px;
-    align-items: center;
+    gap: 10px;
+    margin-top: 4px;
 }
-
 .btn {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255,255,255,0.14);
     color: white;
     text-decoration: none;
-    padding: 10px 22px;
+    padding: 9px 20px;
     border-radius: 30px;
     font-weight: 700;
-    font-size: 0.82rem;
+    font-size: 0.78rem;
     letter-spacing: 1.5px;
     text-transform: uppercase;
-    border: 1.5px solid rgba(255, 255, 255, 0.4);
-    transition: background 0.25s ease, transform 0.2s ease, border-color 0.25s ease;
+    border: 1.5px solid rgba(255,255,255,0.38);
+    transition: background 0.22s, transform 0.18s, border-color 0.22s;
     white-space: nowrap;
 }
-
 .btn:hover {
-    background: rgba(255, 80, 150, 0.55);
-    border-color: rgba(255, 200, 230, 0.7);
+    background: rgba(220,50,110,0.5);
+    border-color: rgba(255,200,230,0.65);
     transform: translateY(-3px);
 }
+.btn.active {
+    background: rgba(220,50,110,0.38);
+    border-color: rgba(255,255,255,0.6);
+}
 
-/* Responsivo */
-@media (max-width: 768px) {
-    .banner-box {
-        flex-direction: column;
-        align-items: center;
-    }
+/* Lore / texto da home */
+.home-lore {
+    margin-top: 40px;
+    max-width: 460px;
+    z-index: 2;
+}
+.home-lore h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.2rem;
+    color: #fff;
+    letter-spacing: 3px;
+    margin-bottom: 14px;
+    text-shadow: 0 0 20px rgba(200,50,100,0.5);
+}
+.home-lore p {
+    color: rgba(255,255,255,0.82);
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
 
-    .character-home {
-        width: 240px;
-        margin-bottom: -20px;
-    }
+/* Personagem lado direito — vaza por baixo do card */
+.home-character {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 48%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    pointer-events: none;
+    z-index: 1;
+}
+.home-character img {
+    width: 100%;
+    max-width: 560px;
+    height: auto;
+    object-fit: contain;
+    object-position: bottom right;
+    filter: drop-shadow(0 16px 40px rgba(200,40,100,0.3));
+    /* A imagem fica metade atrás do card — o card tem z-index: 2 */
+}
 
-    .text-content {
-        margin-left: 0;
-        padding: 36px 28px;
-        text-align: center;
-    }
+/* Card de lore com blur suave (mais fraco que antes) */
+.home-lore-card {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 20px;
+    padding: 32px 36px;
+    margin-top: 40px;
+    max-width: 480px;
+    z-index: 2;
+    position: relative;
+}
 
-    .text-content h1 {
-        font-size: 3.5rem;
-    }
+/* PNG decorativo canto esquerdo (home e páginas internas) */
+.deco-left {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 120px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.85;
+}
 
-    .text-content h1 strong {
-        font-size: 4.5rem;
-    }
+/* ════════════════════════════════════════════════════
+   PÁGINAS INTERNAS (layout compartilhado)
+════════════════════════════════════════════════════ */
+.page-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 0 0 100px 0;
+}
 
-    .menu-buttons {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
+/* Topbar: logo + nav */
+.topbar {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    padding: 28px 60px 20px;
+    z-index: 10;
+    position: relative;
+}
+.topbar-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    transition: transform 0.22s;
+    flex-shrink: 0;
+}
+.topbar-logo:hover { transform: translateY(-2px); }
+.topbar-logo-placeholder {
+    width: 48px;
+    height: 48px;
+    background: rgba(255,255,255,0.18);
+    border: 2px dashed rgba(255,255,255,0.5);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.5rem;
+    color: rgba(255,255,255,0.7);
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-align: center;
+}
+.topbar-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    color: #fff;
+    line-height: 1;
+    text-shadow: 0 0 14px rgba(200,50,100,0.4);
+}
+.topbar-title span { color: #ffd0e8; }
+.topbar-nav {
+    display: flex;
+    gap: 10px;
+    flex-wrap: nowrap;
+}
+
+/* Layout principal das páginas internas */
+.page-body {
+    display: flex;
+    flex: 1;
+    gap: 0;
+    padding: 0 60px;
+    position: relative;
+}
+
+/* Coluna esquerda: título + descrição */
+.page-left {
+    width: 320px;
+    flex-shrink: 0;
+    padding-right: 40px;
+    z-index: 2;
+}
+.page-section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.8rem;
+    color: #fff;
+    letter-spacing: 2px;
+    line-height: 0.9;
+    margin-bottom: 20px;
+    text-shadow: 0 0 22px rgba(200,50,100,0.45);
+}
+.page-desc {
+    color: rgba(255,255,255,0.8);
+    font-size: 0.92rem;
+    line-height: 1.75;
+}
+
+/* Coluna direita: conteúdo específico */
+.page-right {
+    flex: 1;
+    z-index: 2;
+}
+
+/* PNG decorativo canto esquerdo nas páginas internas */
+.page-deco-left {
+    position: absolute;
+    left: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 110px;
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+/* ── AI MODELS: cards ───────────────────────────── */
+.models-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.model-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 16px;
+    padding: 16px 20px;
+}
+.model-thumb {
+    width: 90px;
+    height: 110px;
+    background: rgba(255,255,255,0.12);
+    border: 2px dashed rgba(255,255,255,0.4);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.55rem;
+    color: rgba(255,255,255,0.6);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    flex-shrink: 0;
+}
+.model-info h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    color: #fff;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+.model-links { display: flex; gap: 10px; flex-wrap: wrap; }
+.model-link {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 14px;
+    border-radius: 20px;
+    border: 1.5px solid rgba(255,255,255,0.35);
+    background: rgba(255,255,255,0.1);
+    transition: background 0.2s, transform 0.15s;
+}
+.model-link:hover {
+    background: rgba(220,50,110,0.45);
+    transform: translateY(-2px);
+}
+
+/* ── ANIMATIONS: embed area ─────────────────────── */
+.anim-showcase {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+.anim-slot {
+    background: rgba(255,255,255,0.1);
+    border: 2px dashed rgba(255,255,255,0.35);
+    border-radius: 14px;
+    aspect-ratio: 16/9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.55);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+/* ── COMICS: grid de painéis ─────────────────────── */
+.comics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+.comic-panel {
+    background: rgba(255,255,255,0.1);
+    border: 2px dashed rgba(255,255,255,0.3);
+    border-radius: 10px;
+    aspect-ratio: 3/4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.5);
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ── SNEAK PEEKS: moldura especial ──────────────── */
+.sneak-frame {
+    background: rgba(255,255,255,0.08);
+    border: 2px solid rgba(255,200,230,0.35);
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 0 40px rgba(220,50,110,0.2), inset 0 0 30px rgba(255,255,255,0.04);
+}
+.sneak-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+.sneak-slot {
+    background: rgba(255,255,255,0.1);
+    border: 2px dashed rgba(255,200,230,0.4);
+    border-radius: 12px;
+    aspect-ratio: 16/10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,220,235,0.6);
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ── GAMES: embedded widget ─────────────────────── */
+.games-embed-area {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.games-embed-slot {
+    background: rgba(255,255,255,0.08);
+    border: 2px dashed rgba(255,255,255,0.3);
+    border-radius: 16px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.5);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+}
+.games-embed-slot iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 14px;
+}
+
+/* ── Responsivo básico ──────────────────────────── */
+@media (max-width: 860px) {
+    .home-wrapper, .page-body { padding-left: 24px; padding-right: 24px; }
+    .topbar { padding: 20px 24px 14px; }
+    .page-left { width: 100%; padding-right: 0; margin-bottom: 28px; }
+    .page-body { flex-direction: column; }
+    .home-character { position: static; width: 100%; height: auto; margin-top: 24px; }
+    .comics-grid { grid-template-columns: repeat(2, 1fr); }
+    .anim-showcase { grid-template-columns: 1fr; }
 }
