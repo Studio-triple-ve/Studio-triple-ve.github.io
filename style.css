@@ -27,8 +27,8 @@ body, html {
     left: auto !important;
     top: auto !important;
     z-index: 9999;
-    width: 100px;
-    height: 100px;
+    width: auto ;
+    height: auto ;
     transform: none !important;
     background: rgba(255,255,255,0.15);
     border: 2px dashed rgba(255,255,255,0.5);
