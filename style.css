@@ -29,6 +29,7 @@ body, html {
     z-index: 9999;
     width: auto ;
     height: auto ;
+    max-width 220px ;
     transform: none !important;
     background: rgba(255,255,255,0.15);
     border: 2px dashed rgba(255,255,255,0.5);
