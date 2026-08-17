@@ -1,1 +1,0 @@
-# Studio-triple-ve.github.io
