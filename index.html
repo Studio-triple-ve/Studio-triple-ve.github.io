@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Triple-Vé Studio — Indie Animation &amp; Game Studio</title>
+<meta name="description" content="Triple-Vé Studio: independent animation, games, and original character models — plus the studio log. SFW peeks here, full releases on Patreon. Mature themes, 18+.">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon-180.png">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body>
+
+<!-- ═══ AGE GATE ═══ -->
+<div class="age-gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
+  <div class="age-gate-card">
+    <div class="age-gate-art"><img src="assets/img/mascot-home.png" alt="" role="presentation"></div>
+    <div class="age-gate-body">
+      <a href="index.html" class="brand" tabindex="-1" aria-hidden="true">
+        <img src="assets/img/icon.png" alt="">
+        <span class="brand-word">Triple<em>-Vé</em><br>Studio</span>
+      </a>
+      <h2 id="gate-title">Mature content ahead — 18+</h2>
+      <p>Triple-Vé Studio explores mature themes across its animation, games, and character work. You need to be an adult where you live to come in.</p>
+      <div class="age-gate-actions">
+        <button type="button" class="btn btn--accent" data-gate-enter>I'm 18+ — Let me in</button>
+        <button type="button" class="btn btn--ghost" data-gate-exit>Take me elsewhere</button>
+      </div>
+      <p class="age-gate-fine">By entering you confirm you're of legal age to view mature content in your location.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ HEADER ═══ -->
+<header class="site-header">
+  <a href="index.html" class="brand">
+    <img src="assets/img/icon.png" alt="">
+    <span class="brand-word">Triple<em>-Vé</em><br>Studio</span>
+  </a>
+  <button class="nav-toggle" aria-label="Toggle menu"><span></span></button>
+  <nav class="nav">
+    <a href="models.html">Models</a>
+    <a href="games.html">Games</a>
+    <a href="animations.html">Animations</a>
+    <a href="patreon.html" class="nav-cta">Patreon</a>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ═══ HERO ═══ -->
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="hero-kicker">Independent · Animation &amp; Game Studio · 18+</p>
+      <h1 class="hero-title">Stories drawn<br>a little too <em>honestly.</em></h1>
+      <p class="hero-lead">
+        Hand-drawn animation, character-driven games, and original models —
+        made after hours, funded by whoever sticks around for the good stuff.
+        What's here is the SFW cut. The rest lives on Patreon.
+      </p>
+      <div class="hero-actions">
+        <a href="patreon.html" class="btn btn--accent">Join the Patreon</a>
+        <a href="#peek" class="btn btn--ghost">See what we make ↓</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <img src="assets/img/mascot-home.png" alt="Triple-Vé Studio mascot, the studio's home key art">
+    </div>
+  </section>
+
+  <!-- ═══ PEEK STRIP ═══ -->
+  <section class="peek container" id="peek">
+    <h2>A peek behind the curtain</h2>
+    <p class="peek-sub">Four doors. Every one of them leads to Patreon eventually.</p>
+
+    <div class="peek-shelf">
+      <a class="peek-tile peek-tile--wide" href="models.html">
+        <span class="peek-tile-media" data-placeholder="Model roster · art coming soon"></span>
+        <span class="peek-tile-label">
+          <span class="peek-tile-name">Models</span>
+          <span class="peek-tile-desc">Original AI-crafted characters, each with their own vibe, feed, and Patreon tier.</span>
+        </span>
+      </a>
+      <a class="peek-tile" href="games.html">
+        <span class="peek-tile-media" data-placeholder="Games · itch.io builds"></span>
+        <span class="peek-tile-label">
+          <span class="peek-tile-name">Games</span>
+          <span class="peek-tile-desc">Playable demos now, full builds &amp; DLC for supporters.</span>
+        </span>
+      </a>
+      <a class="peek-tile" href="animations.html">
+        <span class="peek-tile-media" data-placeholder="Animations · SFW teasers"></span>
+        <span class="peek-tile-label">
+          <span class="peek-tile-name">Animations</span>
+          <span class="peek-tile-desc">Original 2D shorts. Teasers here, uncut cuts on Patreon.</span>
+        </span>
+      </a>
+      <a class="peek-tile" href="patreon.html">
+        <span class="peek-tile-media" data-placeholder="Patreon · tiers &amp; perks"></span>
+        <span class="peek-tile-label">
+          <span class="peek-tile-name">Patreon</span>
+          <span class="peek-tile-desc">Everything above, uncensored — plus WIPs we don't post anywhere else.</span>
+        </span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══ STUDIO LOG — the landing page doubles as the news page ═══ -->
+  <section class="studio-log container" id="log">
+    <div class="log-head">
+      <h2>Studio log</h2>
+      <p class="log-sub">Devlogs, drops, and whatever else happened this week. <span class="log-note">(sample posts — swap in your real updates)</span></p>
+    </div>
+
+    <ul class="log-list">
+      <li class="log-post">
+        <div class="log-meta">
+          <time>Aug 12, 2026</time>
+          <span class="log-tag">Site</span>
+        </div>
+        <div class="log-body">
+          <h3>The new signpost is up</h3>
+          <p>Rebuilt the site from scratch — same lore, better roads. Poke around and tell us if anything's creaking.</p>
+        </div>
+      </li>
+      <li class="log-post">
+        <div class="log-meta">
+          <time>Aug 2, 2026</time>
+          <span class="log-tag">Animations</span>
+        </div>
+        <div class="log-body">
+          <h3>Teaser #3 is in the tank</h3>
+          <p>Animatic's locked for the next short. Full uncut version goes to Patreon first, as always.</p>
+        </div>
+      </li>
+      <li class="log-post">
+        <div class="log-meta">
+          <time>Jul 21, 2026</time>
+          <span class="log-tag">Games</span>
+        </div>
+        <div class="log-body">
+          <h3>Demo build 0.3 is live on itch.io</h3>
+          <p>New level, new HUD, fewer bugs (we hope). Go break it and tell us how.</p>
+        </div>
+      </li>
+      <li class="log-post">
+        <div class="log-meta">
+          <time>Jul 9, 2026</time>
+          <span class="log-tag">Models</span>
+        </div>
+        <div class="log-body">
+          <h3>A new face is joining the roster</h3>
+          <p>Concept sketches are done. Full character sheet drops for Patreon supporters this week.</p>
+        </div>
+      </li>
+      <li class="log-post">
+        <div class="log-meta">
+          <time>Jun 30, 2026</time>
+          <span class="log-tag">Patreon</span>
+        </div>
+        <div class="log-body">
+          <h3>Tiers got a refresh</h3>
+          <p>Simplified down to three tiers so it's actually clear what you get. Details on the Patreon page.</p>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ═══ LORE ═══ -->
+  <section class="lore container">
+    <h2>The lore, such as it is</h2>
+    <p>
+      Triple-Vé Studio started as a sketchbook habit that got out of hand.
+      No big publisher, no notes from a marketing team — just a small crew drawing
+      the characters and stories they'd actually want to follow, then building
+      games and animation around them. The signpost is our mark because that's
+      what this whole thing is: word of mouth, one smoke trail at a time.
+    </p>
+    <p class="lore-aside">
+      Why "Triple-Vé"? In French, the letter W is <em>double-vé</em> — literally
+      "double V." We just kept going.
+    </p>
+  </section>
+
+</main>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <img src="assets/img/logo.png" alt="Triple-Vé Studio">
+      <p>Independent animation &amp; game studio. Mature themes, 18+. SFW previews live here — full releases live on Patreon.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Studio</h4>
+      <a href="models.html">Models</a>
+      <a href="games.html">Games</a>
+      <a href="animations.html">Animations</a>
+      <a href="patreon.html">Patreon</a>
+    </div>
+    <div class="footer-col">
+      <h4>Elsewhere</h4>
+      <a href="#" target="_blank" rel="noopener">TikTok</a>
+      <a href="#" target="_blank" rel="noopener">Twitter / X</a>
+      <a href="#" target="_blank" rel="noopener">itch.io</a>
+      <a href="#" target="_blank" rel="noopener">Fanbox</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Triple-Vé Studio. Mature content, 18+.</span>
+    <span class="tag">W · W · W</span>
+  </div>
+</footer>
+
+<a href="patreon.html#contact" class="contact-fab" data-particles>
+  <span class="fab-chip">Contact us</span>
+  <img class="fab-art" src="assets/img/contact-cta.png" alt="Contact Triple-Vé Studio">
+</a>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
