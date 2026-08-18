@@ -32,7 +32,9 @@
     }
   });
 
-  /* ── Contact FAB — reveal only after scrolling past the intro ── */
+  /* ── Contact FAB — always visible on desktop; on narrow screens
+     (see CSS) it only reveals after scrolling past the intro, since
+     there's no side margin there for it to sit clear of the text ── */
   var fab = document.querySelector(".contact-fab");
   if (fab) {
     var revealAt = 360;
@@ -75,8 +77,15 @@
 
   /* ── Magical click particles ──────────────────────────────────
      Spawns a small burst of the brand's chalky "W" glyphs and soft
-     smoke wisps at the click point. Bound to nav links, buttons,
-     and the brand mark — the studio's one authored motion moment. */
+     smoke wisps at EVERY click, anywhere on the page — the studio's
+     one authored motion moment, not gated to specific elements.
+
+     For same-tab links that navigate to a new page, the browser
+     would otherwise unload the DOM before the burst finishes
+     playing (that's the "cuts off too fast" you saw). So for those
+     specifically, we hold the navigation for one beat, just long
+     enough for the burst to read, then continue on. In-page anchors,
+     new-tab links, and mailto/tel links are untouched. */
   var field = document.createElement("div");
   field.className = "particle-field";
   field.setAttribute("aria-hidden", "true");
@@ -85,6 +94,7 @@
   });
 
   var GLYPHS = ["w", "W", "✦", "·"];
+  var NAV_DELAY = 300;
 
   function burst(x, y) {
     var count = 7;
@@ -119,9 +129,20 @@
   }
 
   document.addEventListener("click", function (e) {
-    var trigger = e.target.closest(".btn, .nav a, .brand, .contact-fab, [data-particles]");
-    if (!trigger) return;
     if (!document.body.contains(field)) document.body.appendChild(field);
     burst(e.clientX, e.clientY);
+
+    var link = e.target.closest("a[href]");
+    if (!link) return;
+
+    var href = link.getAttribute("href");
+    if (!href || href.charAt(0) === "#") return;
+    if (href.indexOf("mailto:") === 0 || href.indexOf("tel:") === 0) return;
+    if (link.target === "_blank") return;
+
+    e.preventDefault();
+    setTimeout(function () {
+      window.location.href = href;
+    }, NAV_DELAY);
   });
 })();
