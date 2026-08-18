@@ -86,16 +86,19 @@ body{
 /* Top-of-page glow — the brand book's beige/cream swatch (accents
    row, first chip), not viewport-fixed so it lives at the top of
    the document only, then settles back to flat brown as you scroll.
-   Given generous room here so it actually reads. */
+   Blurred into a soft bloom (same quality as the age-gate glow) and
+   sized to command real presence in the first viewport. */
 .page-glow{
   position:absolute;
-  top:0; left:0; right:0;
-  height:1360px;
+  top:-10vh; left:-6vw; right:-6vw;
+  height:80vh;
+  min-height:660px;
   z-index:-1;
   pointer-events:none;
+  filter:blur(64px);
   background:
-    radial-gradient(60% 56% at 50% -6%, rgba(242,224,210,.30), transparent 74%),
-    radial-gradient(42% 40% at 86% 8%, rgba(242,224,210,.16), transparent 66%);
+    radial-gradient(46% 50% at 50% 20%, rgba(242,224,210,.62), transparent 68%),
+    radial-gradient(34% 38% at 84% 12%, rgba(242,224,210,.34), transparent 62%);
 }
 
 /* Grain — texture the surface belongs to, not decoration bolted on */
@@ -170,25 +173,60 @@ h1,h2,h3{ font-family:var(--font-display); font-weight:400; color:var(--text-hi)
   position:sticky; top:0; z-index:40;
   display:flex; align-items:center; justify-content:space-between;
   gap:24px;
-  padding:26px var(--edge);
+  padding:14px var(--edge);
   background:rgba(36,27,24,.72);
   backdrop-filter: blur(14px) saturate(1.1);
   -webkit-backdrop-filter: blur(14px) saturate(1.1);
   border-bottom:1px solid rgba(137,107,96,.28);
+  /* deliberately NOT overflow:hidden — the logo is meant to spill
+     past the bottom edge. The meteor layer clips itself instead. */
 }
+.header-fx{
+  position:absolute; inset:0;
+  overflow:hidden;
+  pointer-events:none;
+  z-index:-1;
+}
+.hfx{ position:absolute; right:-8%; will-change:transform, opacity; }
+.hfx-streak{
+  width:150px; height:2px; border-radius:2px;
+  background:linear-gradient(90deg, transparent, var(--pink-400) 45%, var(--pink-100) 82%, transparent);
+  filter:drop-shadow(0 0 6px rgba(216,105,112,.65));
+  animation: hfx-fly var(--dur,3.2s) linear forwards;
+}
+.hfx-glyph{
+  font-family:var(--font-display);
+  font-size:var(--gsize,1.4rem);
+  color:var(--pink-200);
+  text-shadow:0 0 10px rgba(216,105,112,.75), -22px 3px 16px rgba(216,105,112,.3);
+  animation: hfx-fly var(--dur,3.6s) linear forwards;
+}
+@keyframes hfx-fly{
+  0%{ transform:translateX(0); opacity:0; }
+  8%{ opacity:1; }
+  90%{ opacity:1; }
+  100%{ transform:translateX(-118vw); opacity:0; }
+}
+
 .brand{
-  display:flex; align-items:center;
-  text-decoration:none;
+  position:relative;
+  display:block;
+  width:200px;
+  align-self:stretch;
   flex-shrink:0;
 }
-.brand-logo{ height:132px; width:auto; }
+.brand-logo{
+  position:absolute;
+  left:0; top:6px;
+  height:222px; width:auto;
+}
 
-.nav{ display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+.nav{ display:flex; align-items:center; gap:20px; flex-wrap:wrap; }
 .nav a{
   position:relative;
   font-family:var(--font-body); font-weight:600;
-  font-size:1.22rem; letter-spacing:.08em; text-transform:uppercase;
-  padding:11px 22px; border-radius:999px;
+  font-size:1.32rem; letter-spacing:.08em; text-transform:uppercase;
+  padding:11px 24px; border-radius:999px;
   text-decoration:none; color:var(--text-lo);
   transition:color .2s, background .2s;
 }
@@ -313,7 +351,7 @@ h1,h2,h3{ font-family:var(--font-display); font-weight:400; color:var(--text-hi)
   display:flex; align-items:center; justify-content:center;
   padding:24px;
   background:
-    radial-gradient(60% 60% at 50% 20%, rgba(242,224,210,.20), transparent 60%),
+    radial-gradient(60% 60% at 50% 20%, rgba(216,105,112,.30), transparent 60%),
     rgba(18,13,11,.92);
   backdrop-filter:blur(10px);
 }
@@ -342,8 +380,8 @@ h1,h2,h3{ font-family:var(--font-display); font-weight:400; color:var(--text-hi)
   opacity:.92;
 }
 .age-gate-body{ padding:52px 46px; display:flex; flex-direction:column; gap:20px; }
-.age-gate-body .brand{ margin-bottom:10px; align-self:center; }
-.age-gate-body .brand-logo{ height:150px; }
+.age-gate-body .brand{ margin-bottom:10px; align-self:center; width:auto; }
+.age-gate-body .brand-logo{ position:static; height:200px; }
 .age-gate-body h2{ font-size:2.2rem; text-align:center; }
 .age-gate-body p{ font-size:1.08rem; color:var(--text-muted); }
 .age-gate-actions{ display:flex; flex-direction:column; gap:12px; margin-top:10px; }
@@ -383,7 +421,7 @@ h1,h2,h3{ font-family:var(--font-display); font-weight:400; color:var(--text-hi)
 ════════════════════════════════════════════════════════════════ */
 @media (max-width:900px){
   .nav{
-    position:fixed; inset:152px 0 auto 0; z-index:39;
+    position:fixed; inset:70px 0 auto 0; z-index:39;
     flex-direction:column; align-items:stretch; gap:2px;
     padding:14px var(--edge) 20px;
     background:rgba(36,27,24,.97);
@@ -394,7 +432,8 @@ h1,h2,h3{ font-family:var(--font-display); font-weight:400; color:var(--text-hi)
   .nav a{ padding:14px; }
   body.nav-open .nav{ transform:translateY(0); opacity:1; pointer-events:auto; }
   .nav-toggle{ display:inline-flex; }
-  .brand-logo{ height:100px; }
+  .brand{ width:118px; }
+  .brand-logo{ height:132px; top:4px; }
   .contact-fab-zone{ right:0; bottom:0; padding:16px; width:260px; height:260px; }
   .contact-fab{ gap:8px; }
   .contact-fab .fab-art{ width:148px; }

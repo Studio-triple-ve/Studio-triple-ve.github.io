@@ -159,4 +159,45 @@
       burst(rect.left + rect.width / 2, rect.top + rect.height / 3);
     });
   }
+
+  /* ── Header meteors ──────────────────────────────────────────────
+     Ambient, non-click motion: the same particle language (chalky
+     "W"s, the brand pink) as long streaks that drift right-to-left
+     behind the nav, like shooting stars. Runs on its own timer,
+     capped at 3 "W"s on screen at once so it stays a background
+     detail rather than a distraction. */
+  var headerFx = document.querySelector(".header-fx");
+  if (headerFx) {
+    var glyphCount = 0;
+    var spawnMeteor = function () {
+      var makeGlyph = Math.random() < 0.4 && glyphCount < 3;
+      var el = document.createElement("span");
+      var dur = 2.6 + Math.random() * 1.8;
+      var top = 14 + Math.random() * 60;
+
+      el.className = "hfx " + (makeGlyph ? "hfx-glyph" : "hfx-streak");
+      el.style.top = top + "%";
+      el.style.setProperty("--dur", dur + "s");
+
+      if (makeGlyph) {
+        el.textContent = "W";
+        el.style.setProperty("--gsize", (1.1 + Math.random() * 0.6) + "rem");
+        glyphCount++;
+      }
+
+      headerFx.appendChild(el);
+      setTimeout(function () {
+        el.remove();
+        if (makeGlyph) glyphCount--;
+      }, dur * 1000 + 120);
+    };
+
+    (function scheduleMeteor() {
+      var delay = 2400 + Math.random() * 4600;
+      setTimeout(function () {
+        spawnMeteor();
+        scheduleMeteor();
+      }, delay);
+    })();
+  }
 })();
