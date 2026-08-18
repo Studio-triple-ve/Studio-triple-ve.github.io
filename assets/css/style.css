@@ -28,6 +28,10 @@
   --pink-500:#d86970;
   --pink-900:#9d182b;
 
+  /* ── Warm accent — sampled from the mascot art's pom-poms ──── */
+  --gold-300:#f9e08a;
+  --gold-500:#f4c430;
+
   /* ── Semantic tokens ───────────────────────────────────────── */
   --bg:            var(--brown-950);
   --bg-elevated:   var(--brown-900);
@@ -72,6 +76,7 @@ button{ font:inherit; color:inherit; }
 ul{ list-style:none; }
 
 body{
+  position:relative;
   min-height:100vh;
   font-family:var(--font-body);
   font-size:var(--fs-body);
@@ -79,11 +84,22 @@ body{
   line-height:1.6;
   color:var(--text-lo);
   background: var(--bg);
-  background-image:
-    radial-gradient(60% 50% at 85% -10%, rgba(216,105,112,.14), transparent 60%),
-    radial-gradient(45% 40% at 5% 0%, rgba(190,164,151,.09), transparent 60%);
-  background-attachment: fixed;
   overflow-x:hidden;
+}
+
+/* Top-of-page glow — warm gold/cream light that lives behind the
+   hero/intro only, then settles back to flat brown as you scroll.
+   Sits in normal document flow (not viewport-fixed), so it never
+   repeats further down the page. */
+.page-glow{
+  position:absolute;
+  top:0; left:0; right:0;
+  height:860px;
+  z-index:-1;
+  pointer-events:none;
+  background:
+    radial-gradient(62% 58% at 50% -6%, rgba(249,224,138,.20), transparent 68%),
+    radial-gradient(42% 42% at 88% 4%, rgba(246,238,236,.12), transparent 62%);
 }
 
 /* Grain — texture the surface belongs to, not decoration bolted on */
@@ -158,7 +174,7 @@ h1,h2,h3{ font-family:var(--font-display); font-weight:400; color:var(--text-hi)
   position:sticky; top:0; z-index:40;
   display:flex; align-items:center; justify-content:space-between;
   gap:24px;
-  padding:22px var(--edge);
+  padding:26px var(--edge);
   background:rgba(36,27,24,.72);
   backdrop-filter: blur(14px) saturate(1.1);
   -webkit-backdrop-filter: blur(14px) saturate(1.1);
@@ -169,13 +185,14 @@ h1,h2,h3{ font-family:var(--font-display); font-weight:400; color:var(--text-hi)
   text-decoration:none;
   flex-shrink:0;
 }
-.brand-logo{ height:72px; width:auto; }
+.brand-logo{ height:118px; width:auto; }
 
-.nav{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+.nav{ display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
 .nav a{
   position:relative;
-  font-weight:600; font-size:1.02rem; letter-spacing:.1em; text-transform:uppercase;
-  padding:11px 20px; border-radius:999px;
+  font-family:var(--font-display); font-weight:400;
+  font-size:1.55rem; letter-spacing:.01em; text-transform:none;
+  padding:10px 22px; border-radius:999px;
   text-decoration:none; color:var(--text-lo);
   transition:color .2s, background .2s;
 }
@@ -215,7 +232,7 @@ h1,h2,h3{ font-family:var(--font-display); font-weight:400; color:var(--text-hi)
   padding-bottom:36px;
 }
 .footer-brand{ max-width:380px; }
-.footer-brand img{ height:60px; margin-bottom:16px; }
+.footer-brand img{ height:90px; margin-bottom:18px; }
 .footer-brand p{ font-size:1.02rem; color:var(--text-muted); }
 .footer-col h4{
   font-family:var(--font-body); font-weight:700; font-size:.86rem;
@@ -242,18 +259,23 @@ h1,h2,h3{ font-family:var(--font-display); font-weight:400; color:var(--text-hi)
 /* ════════════════════════════════════════════════════════════════
    CONTACT CTA — floating, site-wide
 ════════════════════════════════════════════════════════════════ */
+.contact-fab-zone{
+  position:fixed; right:0; bottom:0; z-index:45;
+  width:300px; height:300px;
+  max-width:70vw; max-height:70vw;
+  display:flex; align-items:flex-end; justify-content:flex-end;
+  padding:32px;
+  pointer-events:none;
+}
 .contact-fab{
-  position:fixed; right:32px; bottom:32px; z-index:45;
   display:flex; align-items:flex-end; gap:12px;
   text-decoration:none;
-  animation: fab-pop .5s var(--ease-out) .3s both;
+  opacity:0; transform:translateY(16px) scale(.94); pointer-events:none;
+  transition:opacity .35s var(--ease-out), transform .35s var(--ease-out);
 }
-@keyframes fab-pop{
-  from{ opacity:0; transform:translateY(16px) scale(.9); }
-  to{ opacity:1; transform:none; }
-}
+.contact-fab.is-visible{ opacity:1; transform:none; pointer-events:auto; }
 .contact-fab .fab-art{
-  width:168px; height:auto;
+  width:194px; height:auto;
   filter:drop-shadow(0 18px 34px rgba(0,0,0,.5));
   transition:transform .35s var(--ease-out);
   border-radius:16px;
@@ -274,6 +296,19 @@ h1,h2,h3{ font-family:var(--font-display); font-weight:400; color:var(--text-hi)
 .contact-fab:hover .fab-art{ transform:translateY(-8px) rotate(-3deg) scale(1.03); }
 .contact-fab:hover .fab-chip{ opacity:1; transform:translateX(0); }
 
+/* Hover-capable pointers (desktop): the button lives hidden and is
+   summoned by proximity — hovering anywhere in its corner zone
+   fades it in slowly, paired with a burst of the click-particles
+   (wired in JS). No scroll dependency here. */
+@media (hover:hover) and (pointer:fine){
+  .contact-fab-zone{ pointer-events:auto; }
+  .contact-fab{ transition:opacity .85s var(--ease-out), transform .85s var(--ease-out); }
+  .contact-fab-zone:hover .contact-fab,
+  .contact-fab-zone:focus-within .contact-fab{
+    opacity:1; transform:none; pointer-events:auto;
+  }
+}
+
 /* ════════════════════════════════════════════════════════════════
    AGE GATE
 ════════════════════════════════════════════════════════════════ */
@@ -282,7 +317,7 @@ h1,h2,h3{ font-family:var(--font-display); font-weight:400; color:var(--text-hi)
   display:flex; align-items:center; justify-content:center;
   padding:24px;
   background:
-    radial-gradient(60% 60% at 50% 20%, rgba(157,24,43,.25), transparent 60%),
+    radial-gradient(60% 60% at 50% 20%, rgba(244,196,48,.16), transparent 60%),
     rgba(18,13,11,.92);
   backdrop-filter:blur(10px);
 }
@@ -311,9 +346,9 @@ h1,h2,h3{ font-family:var(--font-display); font-weight:400; color:var(--text-hi)
   opacity:.92;
 }
 .age-gate-body{ padding:52px 46px; display:flex; flex-direction:column; gap:20px; }
-.age-gate-body .brand{ margin-bottom:6px; }
-.age-gate-body .brand-logo{ height:64px; }
-.age-gate-body h2{ font-size:2.2rem; }
+.age-gate-body .brand{ margin-bottom:10px; align-self:center; }
+.age-gate-body .brand-logo{ height:150px; }
+.age-gate-body h2{ font-size:2.2rem; text-align:center; }
 .age-gate-body p{ font-size:1.08rem; color:var(--text-muted); }
 .age-gate-actions{ display:flex; flex-direction:column; gap:12px; margin-top:10px; }
 .age-gate-actions .btn{ justify-content:center; width:100%; }
@@ -352,7 +387,7 @@ h1,h2,h3{ font-family:var(--font-display); font-weight:400; color:var(--text-hi)
 ════════════════════════════════════════════════════════════════ */
 @media (max-width:900px){
   .nav{
-    position:fixed; inset:86px 0 auto 0; z-index:39;
+    position:fixed; inset:144px 0 auto 0; z-index:39;
     flex-direction:column; align-items:stretch; gap:2px;
     padding:14px var(--edge) 20px;
     background:rgba(36,27,24,.97);
@@ -363,9 +398,8 @@ h1,h2,h3{ font-family:var(--font-display); font-weight:400; color:var(--text-hi)
   .nav a{ padding:14px; }
   body.nav-open .nav{ transform:translateY(0); opacity:1; pointer-events:auto; }
   .nav-toggle{ display:inline-flex; }
-  .brand-logo{ height:56px; }
-  .contact-fab{ right:18px; bottom:18px; gap:8px; animation:none; }
-  .contact-fab .fab-art{ width:112px; }
-  .contact-fab:not(.is-visible){ opacity:0; transform:translateY(14px) scale(.94); pointer-events:none; }
-  .contact-fab.is-visible{ opacity:1; transform:none; pointer-events:auto; transition:opacity .35s var(--ease-out), transform .35s var(--ease-out); }
+  .brand-logo{ height:92px; }
+  .contact-fab-zone{ right:0; bottom:0; padding:18px; width:220px; height:220px; }
+  .contact-fab{ gap:8px; }
+  .contact-fab .fab-art{ width:128px; }
 }

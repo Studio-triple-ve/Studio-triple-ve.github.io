@@ -32,11 +32,17 @@
     }
   });
 
-  /* ── Contact FAB — always visible on desktop; on narrow screens
-     (see CSS) it only reveals after scrolling past the intro, since
-     there's no side margin there for it to sit clear of the text ── */
+  /* ── Contact FAB ───────────────────────────────────────────────
+     Desktop/mouse: hidden by default, summoned by proximity — CSS
+     handles the fade via :hover on the zone; JS just fires a magic
+     burst the moment the hover begins. Touch: no real hover, so it
+     falls back to revealing once scrolled past the intro instead
+     (see CSS + the block below). */
+  var fabZone = document.querySelector(".contact-fab-zone");
   var fab = document.querySelector(".contact-fab");
-  if (fab) {
+  var HOVER_CAPABLE = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  if (fab && !HOVER_CAPABLE) {
     var revealAt = 360;
     var onScroll = function () {
       if (window.scrollY > revealAt) fab.classList.add("is-visible");
@@ -145,4 +151,12 @@
       window.location.href = href;
     }, NAV_DELAY);
   });
+
+  if (fabZone && fab && HOVER_CAPABLE) {
+    fabZone.addEventListener("mouseenter", function () {
+      if (!document.body.contains(field)) document.body.appendChild(field);
+      var rect = fab.getBoundingClientRect();
+      burst(rect.left + rect.width / 2, rect.top + rect.height / 3);
+    });
+  }
 })();
