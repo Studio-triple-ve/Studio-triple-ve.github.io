@@ -28,10 +28,6 @@
   --pink-500:#d86970;
   --pink-900:#9d182b;
 
-  /* ── Warm accent — sampled from the mascot art's pom-poms ──── */
-  --gold-300:#f9e08a;
-  --gold-500:#f4c430;
-
   /* ── Semantic tokens ───────────────────────────────────────── */
   --bg:            var(--brown-950);
   --bg-elevated:   var(--brown-900);
@@ -87,19 +83,19 @@ body{
   overflow-x:hidden;
 }
 
-/* Top-of-page glow — warm gold/cream light that lives behind the
-   hero/intro only, then settles back to flat brown as you scroll.
-   Sits in normal document flow (not viewport-fixed), so it never
-   repeats further down the page. */
+/* Top-of-page glow — the brand book's beige/cream swatch (accents
+   row, first chip), not viewport-fixed so it lives at the top of
+   the document only, then settles back to flat brown as you scroll.
+   Given generous room here so it actually reads. */
 .page-glow{
   position:absolute;
   top:0; left:0; right:0;
-  height:860px;
+  height:1360px;
   z-index:-1;
   pointer-events:none;
   background:
-    radial-gradient(62% 58% at 50% -6%, rgba(249,224,138,.20), transparent 68%),
-    radial-gradient(42% 42% at 88% 4%, rgba(246,238,236,.12), transparent 62%);
+    radial-gradient(60% 56% at 50% -6%, rgba(242,224,210,.30), transparent 74%),
+    radial-gradient(42% 40% at 86% 8%, rgba(242,224,210,.16), transparent 66%);
 }
 
 /* Grain — texture the surface belongs to, not decoration bolted on */
@@ -185,14 +181,14 @@ h1,h2,h3{ font-family:var(--font-display); font-weight:400; color:var(--text-hi)
   text-decoration:none;
   flex-shrink:0;
 }
-.brand-logo{ height:118px; width:auto; }
+.brand-logo{ height:132px; width:auto; }
 
 .nav{ display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
 .nav a{
   position:relative;
-  font-family:var(--font-display); font-weight:400;
-  font-size:1.55rem; letter-spacing:.01em; text-transform:none;
-  padding:10px 22px; border-radius:999px;
+  font-family:var(--font-body); font-weight:600;
+  font-size:1.22rem; letter-spacing:.08em; text-transform:uppercase;
+  padding:11px 22px; border-radius:999px;
   text-decoration:none; color:var(--text-lo);
   transition:color .2s, background .2s;
 }
@@ -261,8 +257,8 @@ h1,h2,h3{ font-family:var(--font-display); font-weight:400; color:var(--text-hi)
 ════════════════════════════════════════════════════════════════ */
 .contact-fab-zone{
   position:fixed; right:0; bottom:0; z-index:45;
-  width:300px; height:300px;
-  max-width:70vw; max-height:70vw;
+  width:380px; height:380px;
+  max-width:78vw; max-height:78vw;
   display:flex; align-items:flex-end; justify-content:flex-end;
   padding:32px;
   pointer-events:none;
@@ -275,7 +271,7 @@ h1,h2,h3{ font-family:var(--font-display); font-weight:400; color:var(--text-hi)
 }
 .contact-fab.is-visible{ opacity:1; transform:none; pointer-events:auto; }
 .contact-fab .fab-art{
-  width:194px; height:auto;
+  width:226px; height:auto;
   filter:drop-shadow(0 18px 34px rgba(0,0,0,.5));
   transition:transform .35s var(--ease-out);
   border-radius:16px;
@@ -317,7 +313,7 @@ h1,h2,h3{ font-family:var(--font-display); font-weight:400; color:var(--text-hi)
   display:flex; align-items:center; justify-content:center;
   padding:24px;
   background:
-    radial-gradient(60% 60% at 50% 20%, rgba(244,196,48,.16), transparent 60%),
+    radial-gradient(60% 60% at 50% 20%, rgba(242,224,210,.20), transparent 60%),
     rgba(18,13,11,.92);
   backdrop-filter:blur(10px);
 }
@@ -387,7 +383,7 @@ h1,h2,h3{ font-family:var(--font-display); font-weight:400; color:var(--text-hi)
 ════════════════════════════════════════════════════════════════ */
 @media (max-width:900px){
   .nav{
-    position:fixed; inset:144px 0 auto 0; z-index:39;
+    position:fixed; inset:152px 0 auto 0; z-index:39;
     flex-direction:column; align-items:stretch; gap:2px;
     padding:14px var(--edge) 20px;
     background:rgba(36,27,24,.97);
@@ -398,8 +394,8 @@ h1,h2,h3{ font-family:var(--font-display); font-weight:400; color:var(--text-hi)
   .nav a{ padding:14px; }
   body.nav-open .nav{ transform:translateY(0); opacity:1; pointer-events:auto; }
   .nav-toggle{ display:inline-flex; }
-  .brand-logo{ height:92px; }
-  .contact-fab-zone{ right:0; bottom:0; padding:18px; width:220px; height:220px; }
+  .brand-logo{ height:100px; }
+  .contact-fab-zone{ right:0; bottom:0; padding:16px; width:260px; height:260px; }
   .contact-fab{ gap:8px; }
-  .contact-fab .fab-art{ width:128px; }
+  .contact-fab .fab-art{ width:148px; }
 }

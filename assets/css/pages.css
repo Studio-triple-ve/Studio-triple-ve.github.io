@@ -302,7 +302,7 @@
   background:linear-gradient(180deg, rgba(216,105,112,.12), var(--bg-elevated) 60%);
 }
 .tier-icon{
-  width:280px; height:auto;
+  width:210px; height:auto;
   align-self:center;
   display:block;
   margin-inline:auto;
