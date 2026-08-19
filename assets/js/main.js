@@ -163,21 +163,30 @@
   /* ── Header meteors ──────────────────────────────────────────────
      Ambient, non-click motion: the same particle language (chalky
      "W"s, the brand pink) as long streaks that drift right-to-left
-     behind the nav, like shooting stars. Runs on its own timer,
-     capped at 3 "W"s on screen at once so it stays a background
-     detail rather than a distraction. */
+     behind the nav, like a slow starfield. Each one's travel distance
+     is computed from the actual header width so it fades out just
+     before reaching the overflowing logo, never crossing it. Capped
+     at 3 "W"s on screen at once; streaks are freer, for a denser,
+     more interstellar drift without it becoming visual noise. */
   var headerFx = document.querySelector(".header-fx");
+  var headerLogo = document.querySelector(".site-header .brand-logo");
   if (headerFx) {
     var glyphCount = 0;
     var spawnMeteor = function () {
-      var makeGlyph = Math.random() < 0.4 && glyphCount < 3;
+      var makeGlyph = Math.random() < 0.35 && glyphCount < 3;
       var el = document.createElement("span");
-      var dur = 2.6 + Math.random() * 1.8;
-      var top = 14 + Math.random() * 60;
+      var dur = 5 + Math.random() * 3.2;
+      var top = 10 + Math.random() * 64;
+
+      var fxWidth = headerFx.getBoundingClientRect().width;
+      var logoRight = headerLogo ? headerLogo.getBoundingClientRect().right : 220;
+      var travel = -(fxWidth - logoRight + 380);
+      if (travel > -160) travel = -160; 
 
       el.className = "hfx " + (makeGlyph ? "hfx-glyph" : "hfx-streak");
       el.style.top = top + "%";
       el.style.setProperty("--dur", dur + "s");
+      el.style.setProperty("--travel", travel + "px");
 
       if (makeGlyph) {
         el.textContent = "W";
@@ -193,7 +202,7 @@
     };
 
     (function scheduleMeteor() {
-      var delay = 2400 + Math.random() * 4600;
+      var delay = 700 + Math.random() * 1400;
       setTimeout(function () {
         spawnMeteor();
         scheduleMeteor();

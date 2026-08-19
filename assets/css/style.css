@@ -83,11 +83,10 @@ body{
   overflow-x:hidden;
 }
 
-/* Top-of-page glow — the brand book's beige/cream swatch (accents
-   row, first chip), not viewport-fixed so it lives at the top of
-   the document only, then settles back to flat brown as you scroll.
-   Blurred into a soft bloom (same quality as the age-gate glow) and
-   sized to command real presence in the first viewport. */
+/* Top-of-page glow — same pink as the age gate, applied site-wide.
+   Not viewport-fixed so it lives at the top of the document only,
+   then settles back to flat brown as you scroll. Blurred into a
+   soft bloom, sized to command real presence in the first viewport. */
 .page-glow{
   position:absolute;
   top:-10vh; left:-6vw; right:-6vw;
@@ -97,8 +96,8 @@ body{
   pointer-events:none;
   filter:blur(64px);
   background:
-    radial-gradient(46% 50% at 50% 20%, rgba(242,224,210,.62), transparent 68%),
-    radial-gradient(34% 38% at 84% 12%, rgba(242,224,210,.34), transparent 62%);
+    radial-gradient(46% 50% at 50% 20%, rgba(216,105,112,.55), transparent 68%),
+    radial-gradient(34% 38% at 84% 12%, rgba(216,105,112,.30), transparent 62%);
 }
 
 /* Grain — texture the surface belongs to, not decoration bolted on */
@@ -173,7 +172,7 @@ h1,h2,h3{ font-family:var(--font-display); font-weight:400; color:var(--text-hi)
   position:sticky; top:0; z-index:40;
   display:flex; align-items:center; justify-content:space-between;
   gap:24px;
-  padding:14px var(--edge);
+  padding:21px var(--edge);
   background:rgba(36,27,24,.72);
   backdrop-filter: blur(14px) saturate(1.1);
   -webkit-backdrop-filter: blur(14px) saturate(1.1);
@@ -189,23 +188,24 @@ h1,h2,h3{ font-family:var(--font-display); font-weight:400; color:var(--text-hi)
 }
 .hfx{ position:absolute; right:-8%; will-change:transform, opacity; }
 .hfx-streak{
-  width:150px; height:2px; border-radius:2px;
-  background:linear-gradient(90deg, transparent, var(--pink-400) 45%, var(--pink-100) 82%, transparent);
-  filter:drop-shadow(0 0 6px rgba(216,105,112,.65));
-  animation: hfx-fly var(--dur,3.2s) linear forwards;
+  width:170px; height:2px; border-radius:2px;
+  background:linear-gradient(90deg, transparent, var(--pink-400) 42%, var(--pink-100) 80%, transparent);
+  filter:drop-shadow(0 0 7px rgba(216,105,112,.7));
+  animation: hfx-fly var(--dur,6s) cubic-bezier(.4,0,.2,1) forwards;
 }
 .hfx-glyph{
   font-family:var(--font-display);
   font-size:var(--gsize,1.4rem);
   color:var(--pink-200);
   text-shadow:0 0 10px rgba(216,105,112,.75), -22px 3px 16px rgba(216,105,112,.3);
-  animation: hfx-fly var(--dur,3.6s) linear forwards;
+  animation: hfx-fly var(--dur,6.5s) cubic-bezier(.4,0,.2,1) forwards;
 }
 @keyframes hfx-fly{
   0%{ transform:translateX(0); opacity:0; }
   8%{ opacity:1; }
-  90%{ opacity:1; }
-  100%{ transform:translateX(-118vw); opacity:0; }
+  28%{ opacity:1; }
+  50%{ opacity:0; }
+  100%{ transform:translateX(var(--travel, -70vw)); opacity:0; }
 }
 
 .brand{
@@ -219,6 +219,7 @@ h1,h2,h3{ font-family:var(--font-display); font-weight:400; color:var(--text-hi)
   position:absolute;
   left:0; top:6px;
   height:222px; width:auto;
+  max-width:none;
 }
 
 .nav{ display:flex; align-items:center; gap:20px; flex-wrap:wrap; }
@@ -421,7 +422,7 @@ h1,h2,h3{ font-family:var(--font-display); font-weight:400; color:var(--text-hi)
 ════════════════════════════════════════════════════════════════ */
 @media (max-width:900px){
   .nav{
-    position:fixed; inset:70px 0 auto 0; z-index:39;
+    position:fixed; inset:84px 0 auto 0; z-index:39;
     flex-direction:column; align-items:stretch; gap:2px;
     padding:14px var(--edge) 20px;
     background:rgba(36,27,24,.97);
