@@ -90,14 +90,14 @@ body{
 .page-glow{
   position:absolute;
   top:-10vh; left:-6vw; right:-6vw;
-  height:80vh;
-  min-height:660px;
+  height:88vh;
+  min-height:720px;
   z-index:-1;
   pointer-events:none;
   filter:blur(64px);
   background:
-    radial-gradient(46% 50% at 50% 20%, rgba(216,105,112,.55), transparent 68%),
-    radial-gradient(34% 38% at 84% 12%, rgba(216,105,112,.30), transparent 62%);
+    radial-gradient(52% 56% at 50% 20%, rgba(216,105,112,.55), transparent 70%),
+    radial-gradient(48% 54% at 80% 34%, rgba(216,105,112,.36), transparent 68%);
 }
 
 /* Grain — texture the surface belongs to, not decoration bolted on */
@@ -172,13 +172,14 @@ h1,h2,h3{ font-family:var(--font-display); font-weight:400; color:var(--text-hi)
   position:sticky; top:0; z-index:40;
   display:flex; align-items:center; justify-content:space-between;
   gap:24px;
-  padding:21px var(--edge);
+  padding:62px var(--edge);
   background:rgba(36,27,24,.72);
   backdrop-filter: blur(14px) saturate(1.1);
   -webkit-backdrop-filter: blur(14px) saturate(1.1);
   border-bottom:1px solid rgba(137,107,96,.28);
   /* deliberately NOT overflow:hidden — the logo is meant to spill
-     past the bottom edge. The meteor layer clips itself instead. */
+     past the bottom edge, right where "STUDIO" begins. The meteor
+     layer clips itself instead. */
 }
 .header-fx{
   position:absolute; inset:0;
@@ -200,6 +201,12 @@ h1,h2,h3{ font-family:var(--font-display); font-weight:400; color:var(--text-hi)
   text-shadow:0 0 10px rgba(216,105,112,.75), -22px 3px 16px rgba(216,105,112,.3);
   animation: hfx-fly var(--dur,6.5s) cubic-bezier(.4,0,.2,1) forwards;
 }
+.hfx-wisp{
+  width:var(--size,12px); height:var(--size,12px); border-radius:50%;
+  background:radial-gradient(circle, rgba(246,238,236,.92), rgba(246,238,236,0) 70%);
+  filter:drop-shadow(0 0 6px rgba(216,105,112,.5));
+  animation: hfx-fly var(--dur,12s) linear forwards;
+}
 @keyframes hfx-fly{
   0%{ transform:translateX(0); opacity:0; }
   8%{ opacity:1; }
@@ -218,7 +225,7 @@ h1,h2,h3{ font-family:var(--font-display); font-weight:400; color:var(--text-hi)
 .brand-logo{
   position:absolute;
   left:0; top:6px;
-  height:222px; width:auto;
+  height:185px; width:auto;
   max-width:none;
 }
 
@@ -267,8 +274,8 @@ h1,h2,h3{ font-family:var(--font-display); font-weight:400; color:var(--text-hi)
   padding-bottom:36px;
 }
 .footer-brand{ max-width:380px; }
-.footer-brand img{ height:90px; margin-bottom:18px; }
-.footer-brand p{ font-size:1.02rem; color:var(--text-muted); }
+.footer-brand img{ height:150px; margin:0 auto 18px; display:block; }
+.footer-brand p{ font-size:1.02rem; color:var(--text-muted); text-align:center; }
 .footer-col h4{
   font-family:var(--font-body); font-weight:700; font-size:.86rem;
   letter-spacing:.16em; text-transform:uppercase; color:var(--text-lo);
@@ -421,8 +428,9 @@ h1,h2,h3{ font-family:var(--font-display); font-weight:400; color:var(--text-hi)
    RESPONSIVE — shared breakpoints
 ════════════════════════════════════════════════════════════════ */
 @media (max-width:900px){
+  .site-header{ padding:27px var(--edge); }
   .nav{
-    position:fixed; inset:84px 0 auto 0; z-index:39;
+    position:fixed; inset:97px 0 auto 0; z-index:39;
     flex-direction:column; align-items:stretch; gap:2px;
     padding:14px var(--edge) 20px;
     background:rgba(36,27,24,.97);
@@ -433,8 +441,8 @@ h1,h2,h3{ font-family:var(--font-display); font-weight:400; color:var(--text-hi)
   .nav a{ padding:14px; }
   body.nav-open .nav{ transform:translateY(0); opacity:1; pointer-events:auto; }
   .nav-toggle{ display:inline-flex; }
-  .brand{ width:118px; }
-  .brand-logo{ height:132px; top:4px; }
+  .brand{ width:98px; }
+  .brand-logo{ height:110px; top:4px; }
   .contact-fab-zone{ right:0; bottom:0; padding:16px; width:260px; height:260px; }
   .contact-fab{ gap:8px; }
   .contact-fab .fab-art{ width:148px; }

@@ -162,42 +162,49 @@
 
   /* ── Header meteors ──────────────────────────────────────────────
      Ambient, non-click motion: the same particle language (chalky
-     "W"s, the brand pink) as long streaks that drift right-to-left
-     behind the nav, like a slow starfield. Each one's travel distance
-     is computed from the actual header width so it fades out just
-     before reaching the overflowing logo, never crossing it. Capped
-     at 3 "W"s on screen at once; streaks are freer, for a denser,
-     more interstellar drift without it becoming visual noise. */
+     "W"s, the brand pink, and the soft round click-wisps) drifting
+     right-to-left behind the nav, like a slow starfield. Streaks are
+     the fast/common one; wisps are slower and lighter, like they
+     have less weight; "W"s are rarest, capped at 3 on screen. Each
+     one's travel distance is computed from the actual header width
+     so it fades out just before reaching the overflowing logo. */
   var headerFx = document.querySelector(".header-fx");
   var headerLogo = document.querySelector(".site-header .brand-logo");
   if (headerFx) {
     var glyphCount = 0;
     var spawnMeteor = function () {
-      var makeGlyph = Math.random() < 0.35 && glyphCount < 3;
+      var roll = Math.random();
+      var kind = roll < 0.5 ? "streak" : roll < 0.82 ? "wisp" : "glyph";
+      if (kind === "glyph" && glyphCount >= 3) kind = "streak";
+
       var el = document.createElement("span");
-      var dur = 5 + Math.random() * 3.2;
+      var dur = kind === "wisp" ? 10 + Math.random() * 5
+              : kind === "glyph" ? 5.5 + Math.random() * 3.2
+              : 5 + Math.random() * 3.2;
       var top = 10 + Math.random() * 64;
 
       var fxWidth = headerFx.getBoundingClientRect().width;
       var logoRight = headerLogo ? headerLogo.getBoundingClientRect().right : 220;
       var travel = -(fxWidth - logoRight + 380);
-      if (travel > -160) travel = -160; 
+      if (travel > -160) travel = -160;
 
-      el.className = "hfx " + (makeGlyph ? "hfx-glyph" : "hfx-streak");
+      el.className = "hfx hfx-" + kind;
       el.style.top = top + "%";
       el.style.setProperty("--dur", dur + "s");
       el.style.setProperty("--travel", travel + "px");
 
-      if (makeGlyph) {
+      if (kind === "glyph") {
         el.textContent = "W";
         el.style.setProperty("--gsize", (1.1 + Math.random() * 0.6) + "rem");
         glyphCount++;
+      } else if (kind === "wisp") {
+        el.style.setProperty("--size", (8 + Math.random() * 11) + "px");
       }
 
       headerFx.appendChild(el);
       setTimeout(function () {
         el.remove();
-        if (makeGlyph) glyphCount--;
+        if (kind === "glyph") glyphCount--;
       }, dur * 1000 + 120);
     };
 
