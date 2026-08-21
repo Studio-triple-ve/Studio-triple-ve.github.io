@@ -83,8 +83,7 @@ body{
   overflow-x:hidden;
 }
 
-/* Flat brown, as it was originally — no top glow. */
-.page-glow{ display:none; }
+/* Flat brown, as it was originally — no top glow, no texture. */
 
 /* Grain — texture the surface belongs to, not decoration bolted on */
 body::before{
@@ -95,29 +94,6 @@ body::before{
   opacity:.05;
   mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-/* Checkerboard line-art texture — thin pink grid lines, very faint,
-   tiled site-wide behind everything. Outline only, no fill, so it
-   reads as texture rather than pattern. */
-body::after{
-  content:"";
-  position:fixed; inset:0;
-  pointer-events:none;
-  z-index:1;
-  opacity:.07;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='58' height='58'%3E%3Cpath d='M0 .5H58M.5 0V58' fill='none' stroke='%23e6909b' stroke-width='1'/%3E%3C/svg%3E");
-}
-
-/* Decorative line-art — thin pink doodles scattered in open space,
-   never on top of readable content. Same hand-drawn linework
-   language as the signpost icon. */
-.doodle{
-  position:absolute;
-  pointer-events:none;
-  z-index:0;
-  color:var(--pink-500);
-  fill:none;
 }
 
 /* ── Browser surfaces — themed, not left to defaults ─────────────── */
