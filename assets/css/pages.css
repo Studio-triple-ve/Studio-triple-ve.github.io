@@ -165,6 +165,16 @@
   .peek-tile--wide{ grid-column:span 1; }
 }
 
+/* ── Doodles — landing page placements ───────────────────────────── */
+.doodle--flourish{ width:15vw; max-width:230px; top:-2%; right:14%; opacity:.3; }
+.doodle--sparkles{ width:14vw; max-width:200px; bottom:-6%; left:-2%; opacity:.32; }
+.doodle--wave{ width:70vw; max-width:640px; top:38%; right:-8%; opacity:.14; }
+@media (max-width:900px){
+  .doodle--flourish{ width:120px; top:-4%; right:2%; }
+  .doodle--sparkles{ width:110px; bottom:-3%; left:-4%; }
+  .doodle--wave{ width:130vw; top:30%; right:-20%; }
+}
+
 /* ════════════════════════════════════════════════════════════════
    INNER PAGES — shared intro block
 ════════════════════════════════════════════════════════════════ */
